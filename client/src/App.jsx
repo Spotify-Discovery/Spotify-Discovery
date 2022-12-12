@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import Home from './Home.jsx';
-import SongList from './SongList.jsx';
-import RecommendedModal from "./RecommendedModal.jsx";
-import Dashboard from './Dashboard.jsx';
-import Search from './Search.jsx'
+import Home from './components/Home.jsx';
+import SongList from './components/SongList.jsx';
+import RecommendedModal from "./components/RecommendedModal.jsx";
+import Dashboard from './components/Dashboard.jsx';
+import Search from './components/Search.jsx'
+
 const {useState, useEffect, Suspense} = React;
 
 const App = () => {
@@ -166,24 +167,5 @@ const App = () => {
     </main>
   )
 }
-//   return (
-//     <div>
-//     {access_token ? (
-          // <div>
-          //   <NavBar handleSearch={handleSearch} />
-          //   <SongList getRelated={getRelated} results={results}/>
-          // </div>
-
-//     )
-//     :
-//     (
-      // <div className="center">
-      //   <div className="title">Discover<e id="spotify-title">Spotify</e></div>
-      //   <a className="login-button" href={'./login'}>Login to Spotify</a>
-      // </div>
-//     )}
-//   </div>
-//   )
-// }
 
 export default App;
