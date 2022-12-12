@@ -4,7 +4,7 @@ const path = require("path");
 const axios = require('axios');
 
 const cookieParser = require('./middleware/cookieParser.js');
-
+const routes = require('./routes/index.js');
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'client/dist')))
 app.use(cookieParser);
 
 // Routes
-
+app.use('/', routes);
 
 // Listen
 const PORT = process.env.PORT;
@@ -26,4 +26,4 @@ const ADDRESS = HOST + ':' + PORT;
 
 app.listen(PORT, () => {
   console.log(`Listening at: ${ADDRESS}`)
-})
+});
