@@ -5,13 +5,13 @@ import SongList from './components/SongList.jsx';
 import RecommendedModal from "./components/RecommendedModal.jsx";
 import Dashboard from './components/Dashboard.jsx';
 import Search from './components/Search.jsx'
-
 const {useState, useEffect, Suspense} = React;
+import { setTokens } from './actions/setTokens.js';
+import { refreshAccessToken } from './actions/refreshAccessToken.js'
+const mediaPlayer = new Audio();
+mediaPlayer.volume = 0.5;
 
-const App = () => {
-  const mediaPlayer = new Audio();
-  mediaPlayer.volume = 0.5;
-
+const App = (props) => {
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get('access_token');
   const [results, setResults] = useState([]);
@@ -21,8 +21,8 @@ const App = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (access_token) {
-      console.log('found')
+    if (params.get('access_token')) {
+      props.setTokens(params.get('access_token'), params.get('refresh_token'));
       setView('Home')
       axios({
         method: 'get',
@@ -37,11 +37,6 @@ const App = () => {
       })
     }
   }, [])
-
-  useEffect(() => {
-    console.log(results)
-    console.log(view)
-  }, [results, view])
 
   const handleClick = () => {
     axios.get('/login')
@@ -144,6 +139,7 @@ const App = () => {
             <Home handleViewChange={handleViewChange} handleSearch={handleSearch} />
         );
       case "Dashboard":
+        {console.log(props)}
         return (
           <Dashboard getRelated={getRelated} getAccessToken={getAccessToken} userInfo={userInfo} handleViewChange={handleViewChange} playPreview={playPreview} pausePreview={pausePreview} handleSearch={handleSearch}/>
         );
