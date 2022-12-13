@@ -81,8 +81,6 @@ router.get('/callback', (req, res) => {
   const storedState = req.cookies ? req.cookies[STATE_KEY] : null;
 
   if (storedState !== state || state === null) {
-    console.log(storedState);
-    console.log(state);
     res.redirect(`${CLIENT_HOME_URL}?` +
       new URLSearchParams({
         error: 'state_mismatch'
@@ -111,7 +109,7 @@ router.get('/callback', (req, res) => {
           const access_token = response.data.access_token;
           const refresh_token = response.data.refresh_token;
 
-          res.redirect(`${CLIENT_HOME_URL}feed?` +
+          res.redirect(`${CLIENT_HOME_URL}?` +
             new URLSearchParams({
               access_token: access_token,
               refresh_token: refresh_token
@@ -163,7 +161,6 @@ router.get('/refresh/:refresh_token', function(req, res) {
       }
     })
     .catch((error) => {
-      console.log(error);
       res.redirect(`${CLIENT_HOME_URL}?` +
         new URLSearchParams({
           error: 'internal_server_error'
