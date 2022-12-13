@@ -1,18 +1,21 @@
 import Redux from 'redux';
 
-const initialState = {
-  access_token: null,
-  refresh_token: null
-}
+const initialState = {}
 
 var tokensReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SET_TOKENS':
+      return {
+        access_token: action.access_token,
+        refresh_token: action.refresh_token
+      }
+    case 'REFRESH_ACCESS_TOKEN':
+      return {
+        ...state,
+        access_token: action.access_token
+      }
     default:
       return state;
-    case 'SET_TOKENS':
-      return action.tokens;
-    case 'REFRESH_ACCESS_TOKEN':
-      return action.tokens;
   }
 };
 
